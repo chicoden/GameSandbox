@@ -165,8 +165,8 @@ pygame.mouse.set_visible(False)
 mouse = RawMouse(0, 0)
 
 with (
-    open("shaders/simple_transform.vert", "r") as vs_source,
-    open("shaders/phong_light.frag", "r") as fs_source
+    open("../src/shaders/simple_transform.vert", "r") as vs_source,
+    open("../src/shaders/phong_light.frag", "r") as fs_source
 ):
     simple_shader = shaders.compileProgram(
         shaders.compileShader(vs_source.read(), GL_VERTEX_SHADER),
@@ -196,8 +196,8 @@ with (
 )
 
 with (
-    open("shaders/skybox.vert", "r") as vs_source,
-    open("shaders/skybox.frag", "r") as fs_source
+    open("../src/shaders/skybox.vert", "r") as vs_source,
+    open("../src/shaders/skybox.frag", "r") as fs_source
 ):
     skybox_shader = shaders.compileProgram(
         shaders.compileShader(vs_source.read(), GL_VERTEX_SHADER),

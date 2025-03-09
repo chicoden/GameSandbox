@@ -1,0 +1,3 @@
+INFO: current video mode 2560x1600@240Hz R8G8B8
+INFO: created OpenGL 4.6 core context
+INFO: opened image 256x256x3
