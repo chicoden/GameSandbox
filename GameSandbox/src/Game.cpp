@@ -1,33 +1,39 @@
 #include <glad/gl.h>
 #include <string>
-#include <stdexcept>
 #include "Game.hpp"
 
-using namespace gsbox;
+using namespace sandbox;
 
 Game::Game() : logger("log.txt"), window(nullptr) {
 	logger.log(LogLevel::INFO, "game instantiated");
 }
 
-void Game::run() {
-	if (!createWindow()) throw std::runtime_error("failed to create window");
+bool Game::run() {
+	if (!createWindow()) return false;
 	setupEventHandlers();
 
 	while (!glfwWindowShouldClose(window)) {
-		glClearColor(1.0, 0.0, 1.0, 1.0);
+		glClearColor(1.0, 1.0, 0.0, 1.0);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+
+	return true;
 }
 
-void Game::handleKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods) {
+Game::~Game() {
+	destroyWindow();
+	logger.log(LogLevel::INFO, "game destroyed");
+}
+
+void Game::handleKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (key == GLFW_KEY_ESCAPE) {
 		glfwSetWindowShouldClose(window, GLFW_TRUE);
 	}
 }
 
-void Game::handleMouseMoveEvent(GLFWwindow* window, double x, double y) {
+void Game::handleMousePosition(GLFWwindow* window, double x, double y) {
 	Game* game = static_cast<Game*>(glfwGetWindowUserPointer(window));
 	game->logger.log(LogLevel::INFO, std::string("Mouse moved to ") + std::to_string(x) + ", " + std::to_string(y));
 }
@@ -35,8 +41,8 @@ void Game::handleMouseMoveEvent(GLFWwindow* window, double x, double y) {
 void Game::setupEventHandlers() {
 	glfwSetWindowUserPointer(window, this);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	glfwSetKeyCallback(window, handleKeyEvent);
-	glfwSetCursorPosCallback(window, handleMouseMoveEvent);
+	glfwSetCursorPosCallback(window, handleMousePosition);
+	glfwSetKeyCallback(window, handleKey);
 }
 
 bool Game::createWindow() {
@@ -88,26 +94,23 @@ bool Game::createWindow() {
 
 	glfwMakeContextCurrent(window);
 	int version = gladLoadGL(glfwGetProcAddress);
-	if (version == 0) {
-		logger.log(LogLevel::CRITICAL, "failed to create opengl context");
-		return false;
-	} else {
+	if (version != 0) {
 		logger.log(
 			LogLevel::INFO,
-			std::string("created OpenGL ")
-		    + std::to_string(GLAD_VERSION_MAJOR(version)) + "." + std::to_string(GLAD_VERSION_MINOR(version))
+			std::string("created opengl ")
+			+ std::to_string(GLAD_VERSION_MAJOR(version)) + "." + std::to_string(GLAD_VERSION_MINOR(version))
 			+ " core context"
 		);
+	} else {
+		logger.log(LogLevel::CRITICAL, "failed to create opengl context");
+		return false;
 	}
+
+	return true;
 }
 
 void Game::destroyWindow() {
 	glfwMakeContextCurrent(nullptr);
 	glfwTerminate();
-	logger.log(LogLevel::INFO, "window destroyed");
-}
-
-Game::~Game() {
-	destroyWindow();
-	logger.log(LogLevel::INFO, "game destroyed");
+	logger.log(LogLevel::INFO, "terminated glfw, any remaining glfw resources destroyed");
 }

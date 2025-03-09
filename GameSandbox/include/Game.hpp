@@ -3,16 +3,17 @@
 #include <GLFW/glfw3.h>
 #include "Logger.hpp"
 
-namespace gsbox {
+namespace sandbox {
 	class Game {
 		public:
 			Game();
-			void run();
+			bool run();
 			~Game();
 
 		private:
-			static void handleKeyEvent(GLFWwindow* window, int key, int scancode, int action, int mods);
-			static void handleMouseMoveEvent(GLFWwindow* window, double x, double y);
+			static void handleKey(GLFWwindow* window, int key, int scancode, int action, int mods);
+			static void handleMousePosition(GLFWwindow* window, double x, double y);
+
 			void setupEventHandlers();
 			bool createWindow();
 			void destroyWindow();

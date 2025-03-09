@@ -1,26 +1,18 @@
 #pragma once
 
 #include <filesystem>
-#include <fstream>
 #include <string>
+#include <fstream>
 
 namespace fs = std::filesystem;
 
-namespace gsbox {
+namespace sandbox {
 	enum LogLevel {
 		DEBUG,
 		INFO,
 		WARNING,
 		ERROR,
 		CRITICAL
-	};
-
-	const std::string LEVEL_NAMES[] = {
-		"DEBUG",
-		"INFO",
-		"WARNING",
-		"ERROR",
-		"CRITICAL"
 	};
 
 	class Logger {
@@ -30,6 +22,14 @@ namespace gsbox {
 			~Logger();
 
 		private:
+			const std::string LEVEL_NAMES[5] = {
+				"DEBUG",
+				"INFO",
+				"WARNING",
+				"ERROR",
+				"CRITICAL"
+			};
+
 			std::ofstream logFile;
 	};
 }
