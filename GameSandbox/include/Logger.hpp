@@ -22,7 +22,7 @@ namespace sandbox {
 			~Logger();
 
 		private:
-			const std::string LEVEL_NAMES[5] = {
+			inline static const std::string LEVEL_NAMES[] = {
 				"DEBUG",
 				"INFO",
 				"WARNING",

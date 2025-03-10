@@ -1,5 +1,7 @@
 #include <glad/gl.h>
-#include <string>
+#include <fstream>
+#include <sstream>
+#include <vector>
 #include "Game.hpp"
 
 using namespace sandbox;
@@ -11,6 +13,11 @@ Game::Game() : logger("log.txt"), window(nullptr) {
 bool Game::run() {
 	if (!createWindow()) return false;
 	setupEventHandlers();
+
+	if (compileProgram({
+		{"shaders/simple_transform.vert", GL_VERTEX_SHADER},
+		{"shaders/phong_light.frag", GL_FRAGMENT_SHADER}
+	}) == 0) return false;
 
 	while (!glfwWindowShouldClose(window)) {
 		glClearColor(1.0, 1.0, 0.0, 1.0);
@@ -36,13 +43,6 @@ void Game::handleKey(GLFWwindow* window, int key, int scancode, int action, int 
 void Game::handleMousePosition(GLFWwindow* window, double x, double y) {
 	Game* game = static_cast<Game*>(glfwGetWindowUserPointer(window));
 	game->logger.log(LogLevel::INFO, std::string("Mouse moved to ") + std::to_string(x) + ", " + std::to_string(y));
-}
-
-void Game::setupEventHandlers() {
-	glfwSetWindowUserPointer(window, this);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	glfwSetCursorPosCallback(window, handleMousePosition);
-	glfwSetKeyCallback(window, handleKey);
 }
 
 bool Game::createWindow() {
@@ -86,7 +86,7 @@ bool Game::createWindow() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(windowSizeX, windowSizeY, GAME_TITLE, primaryMonitor, nullptr);
+	window = glfwCreateWindow(windowSizeX, windowSizeY, GAME_TITLE.c_str(), primaryMonitor, nullptr);
 	if (window == nullptr) {
 		logger.log(LogLevel::CRITICAL, "failed to create window");
 		return false;
@@ -113,4 +113,75 @@ void Game::destroyWindow() {
 	glfwMakeContextCurrent(nullptr);
 	glfwTerminate();
 	logger.log(LogLevel::INFO, "terminated glfw, any remaining glfw resources destroyed");
+}
+
+void Game::setupEventHandlers() {
+	glfwSetWindowUserPointer(window, this);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPosCallback(window, handleMousePosition);
+	glfwSetKeyCallback(window, handleKey);
+}
+
+unsigned int Game::compileProgram(std::initializer_list<std::pair<fs::path, GLenum>> sources) {
+	std::vector<unsigned int> shaders;
+	shaders.reserve(sources.size());
+	for (const auto& [path, type] : sources) {
+		std::ifstream file(path);
+		if (!file.is_open()) {
+			logger.log(LogLevel::CRITICAL, std::string("failed to open shader source file ") + path.string());
+			continue; // We don't want to stop here since we'd like debug info for all shaders, this is as far as we can go for this one though
+		}
+
+		std::ostringstream stream;
+		stream << file.rdbuf();
+		std::string_view view = stream.view();
+		const char* code = view.data();
+		int length = static_cast<int>(view.size());
+
+		unsigned int shader = glCreateShader(type);
+		glShaderSource(shader, 1, &code, &length);
+		glCompileShader(shader);
+
+		int compileStatus;
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &compileStatus);
+		if (compileStatus == GL_FALSE) {
+			logger.log(LogLevel::CRITICAL, std::string("failed to compile shader ") + path.string());
+
+			int logLength;
+			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength);
+			char* infoLog = new char[logLength];
+			glGetShaderInfoLog(shader, logLength, nullptr, infoLog);
+			logger.log(LogLevel::DEBUG, infoLog);
+			delete[] infoLog;
+
+			glDeleteShader(shader);
+			continue;
+		}
+
+		shaders.push_back(shader);
+	}
+
+	if (shaders.size() != sources.size()) {
+		for (unsigned int shader : shaders) glDeleteShader(shader);
+		return 0;
+	}
+
+	unsigned int program = glCreateProgram();
+	for (unsigned int shader : shaders) glAttachShader(program, shader);
+	glLinkProgram(program);
+
+	for (unsigned int shader : shaders) {
+		glDetachShader(program, shader);
+		glDeleteShader(shader);
+	}
+
+	int linkStatus;
+	glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
+	if (linkStatus == GL_FALSE) {
+		logger.log(LogLevel::CRITICAL, "failed to link program");
+		glDeleteProgram(program);
+		return 0;
+	}
+
+	return program;
 }
