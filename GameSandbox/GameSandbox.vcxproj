@@ -19,14 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Game.hpp" />
-    <ClInclude Include="include\Logger.hpp" />
+    <ClCompile Include="src\gl.c" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\gl.c" />
-    <ClCompile Include="src\Logger.cpp" />
-    <ClCompile Include="src\main.cpp" />
+    <ClInclude Include="include\Game.hpp" />
+    <ClInclude Include="include\Logger.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -1,88 +1,131 @@
-INFO: logging on
-INFO: game instantiated
-INFO: current video mode 2560x1600@240Hz R8G8B8
-INFO: created opengl 4.6 core context
-INFO: Mouse moved to 1325.000000, 786.000000
-INFO: Mouse moved to 1389.000000, 767.000000
-INFO: Mouse moved to 1447.000000, 752.000000
-INFO: Mouse moved to 1505.000000, 740.000000
-INFO: Mouse moved to 1557.000000, 731.000000
-INFO: Mouse moved to 1608.000000, 725.000000
-INFO: Mouse moved to 1664.000000, 719.000000
-INFO: Mouse moved to 1720.000000, 714.000000
-INFO: Mouse moved to 1774.000000, 711.000000
-INFO: Mouse moved to 1830.000000, 705.000000
-INFO: Mouse moved to 1879.000000, 705.000000
-INFO: Mouse moved to 1923.000000, 705.000000
-INFO: Mouse moved to 1963.000000, 705.000000
-INFO: Mouse moved to 1997.000000, 705.000000
-INFO: Mouse moved to 2028.000000, 706.000000
-INFO: Mouse moved to 2050.000000, 708.000000
-INFO: Mouse moved to 2094.000000, 712.000000
-INFO: Mouse moved to 2111.000000, 714.000000
-INFO: Mouse moved to 2123.000000, 716.000000
-INFO: Mouse moved to 2135.000000, 717.000000
-INFO: Mouse moved to 2148.000000, 721.000000
-INFO: Mouse moved to 2156.000000, 723.000000
-INFO: Mouse moved to 2164.000000, 724.000000
-INFO: Mouse moved to 2169.000000, 725.000000
-INFO: Mouse moved to 2175.000000, 728.000000
-INFO: Mouse moved to 2179.000000, 730.000000
-INFO: Mouse moved to 2183.000000, 731.000000
-INFO: Mouse moved to 2186.000000, 734.000000
-INFO: Mouse moved to 2193.000000, 738.000000
-INFO: Mouse moved to 2195.000000, 739.000000
-INFO: Mouse moved to 2198.000000, 742.000000
-INFO: Mouse moved to 2200.000000, 743.000000
-INFO: Mouse moved to 2201.000000, 744.000000
-INFO: Mouse moved to 2203.000000, 746.000000
-INFO: Mouse moved to 2206.000000, 748.000000
-INFO: Mouse moved to 2207.000000, 750.000000
-INFO: Mouse moved to 2210.000000, 753.000000
-INFO: Mouse moved to 2212.000000, 755.000000
-INFO: Mouse moved to 2214.000000, 757.000000
-INFO: Mouse moved to 2217.000000, 758.000000
-INFO: Mouse moved to 2220.000000, 764.000000
-INFO: Mouse moved to 2224.000000, 770.000000
-INFO: Mouse moved to 2226.000000, 776.000000
-INFO: Mouse moved to 2229.000000, 784.000000
-INFO: Mouse moved to 2230.000000, 792.000000
-INFO: Mouse moved to 2232.000000, 800.000000
-INFO: Mouse moved to 2232.000000, 805.000000
-INFO: Mouse moved to 2232.000000, 809.000000
-INFO: Mouse moved to 2232.000000, 813.000000
-INFO: Mouse moved to 2232.000000, 817.000000
-INFO: Mouse moved to 2232.000000, 819.000000
-INFO: Mouse moved to 2229.000000, 823.000000
-INFO: Mouse moved to 2226.000000, 827.000000
-INFO: Mouse moved to 2222.000000, 831.000000
-INFO: Mouse moved to 2214.000000, 838.000000
-INFO: Mouse moved to 2203.000000, 843.000000
-INFO: Mouse moved to 2192.000000, 849.000000
-INFO: Mouse moved to 2180.000000, 854.000000
-INFO: Mouse moved to 2165.000000, 858.000000
-INFO: Mouse moved to 2150.000000, 862.000000
-INFO: Mouse moved to 2137.000000, 864.000000
-INFO: Mouse moved to 2125.000000, 865.000000
-INFO: Mouse moved to 2115.000000, 867.000000
-INFO: Mouse moved to 2107.000000, 869.000000
-INFO: Mouse moved to 2102.000000, 869.000000
-INFO: Mouse moved to 2096.000000, 870.000000
-INFO: Mouse moved to 2094.000000, 870.000000
-INFO: Mouse moved to 2090.000000, 870.000000
-INFO: Mouse moved to 2088.000000, 870.000000
-INFO: Mouse moved to 2085.000000, 870.000000
-INFO: Mouse moved to 2080.000000, 870.000000
-INFO: Mouse moved to 2078.000000, 870.000000
-INFO: Mouse moved to 2077.000000, 870.000000
-INFO: Mouse moved to 2076.000000, 870.000000
-INFO: Mouse moved to 2075.000000, 870.000000
-INFO: Mouse moved to 2074.000000, 869.000000
-INFO: Mouse moved to 2073.000000, 869.000000
-INFO: Mouse moved to 2072.000000, 868.000000
-INFO: Mouse moved to 2071.000000, 868.000000
-INFO: Mouse moved to 2070.000000, 868.000000
-INFO: Mouse moved to 2070.000000, 867.000000
-INFO: terminated glfw, any remaining glfw resources destroyed
-INFO: game destroyed
-INFO: logging off
+SandboxLogger:INFO: logging on
+SandboxLogger:INFO: game instantiated
+SandboxLogger:INFO: current video mode 2560x1600@240Hz R8G8B8
+SandboxLogger:INFO: created opengl 4.6 core context
+SandboxLogger:INFO: mouse at 1279.000000, 803.000000
+SandboxLogger:INFO: mouse at 1276.000000, 811.000000
+SandboxLogger:INFO: mouse at 1273.000000, 824.000000
+SandboxLogger:INFO: mouse at 1269.000000, 836.000000
+SandboxLogger:INFO: mouse at 1263.000000, 856.000000
+SandboxLogger:INFO: mouse at 1260.000000, 873.000000
+SandboxLogger:INFO: mouse at 1254.000000, 891.000000
+SandboxLogger:INFO: mouse at 1248.000000, 912.000000
+SandboxLogger:INFO: mouse at 1244.000000, 932.000000
+SandboxLogger:INFO: mouse at 1238.000000, 952.000000
+SandboxLogger:INFO: mouse at 1234.000000, 969.000000
+SandboxLogger:INFO: mouse at 1230.000000, 988.000000
+SandboxLogger:INFO: mouse at 1228.000000, 1005.000000
+SandboxLogger:INFO: mouse at 1226.000000, 1022.000000
+SandboxLogger:INFO: mouse at 1224.000000, 1056.000000
+SandboxLogger:INFO: mouse at 1226.000000, 1022.000000
+SandboxLogger:INFO: mouse at 1226.000000, 1037.000000
+SandboxLogger:INFO: mouse at 1227.000000, 1049.000000
+SandboxLogger:INFO: mouse at 1229.000000, 1059.000000
+SandboxLogger:INFO: mouse at 1232.000000, 1070.000000
+SandboxLogger:INFO: mouse at 1236.000000, 1078.000000
+SandboxLogger:INFO: mouse at 1240.000000, 1084.000000
+SandboxLogger:INFO: mouse at 1249.000000, 1091.000000
+SandboxLogger:INFO: mouse at 1260.000000, 1096.000000
+SandboxLogger:INFO: mouse at 1275.000000, 1102.000000
+SandboxLogger:INFO: mouse at 1294.000000, 1106.000000
+SandboxLogger:INFO: mouse at 1328.000000, 1110.000000
+SandboxLogger:INFO: mouse at 1362.000000, 1114.000000
+SandboxLogger:INFO: mouse at 1378.000000, 1113.000000
+SandboxLogger:INFO: mouse at 1428.000000, 1116.000000
+SandboxLogger:INFO: mouse at 1433.000000, 1116.000000
+SandboxLogger:INFO: mouse at 1487.000000, 1116.000000
+SandboxLogger:INFO: mouse at 1546.000000, 1116.000000
+SandboxLogger:INFO: mouse at 1610.000000, 1119.000000
+SandboxLogger:INFO: mouse at 1674.000000, 1119.000000
+SandboxLogger:INFO: mouse at 1744.000000, 1125.000000
+SandboxLogger:INFO: mouse at 1814.000000, 1132.000000
+SandboxLogger:INFO: mouse at 1879.000000, 1138.000000
+SandboxLogger:INFO: mouse at 1940.000000, 1147.000000
+SandboxLogger:INFO: mouse at 2001.000000, 1153.000000
+SandboxLogger:INFO: mouse at 2052.000000, 1159.000000
+SandboxLogger:INFO: mouse at 2107.000000, 1162.000000
+SandboxLogger:INFO: mouse at 2167.000000, 1168.000000
+SandboxLogger:INFO: mouse at 2238.000000, 1177.000000
+SandboxLogger:INFO: mouse at 2319.000000, 1187.000000
+SandboxLogger:INFO: mouse at 2401.000000, 1208.000000
+SandboxLogger:INFO: mouse at 2488.000000, 1229.000000
+SandboxLogger:INFO: mouse at 2572.000000, 1260.000000
+SandboxLogger:INFO: mouse at 2656.000000, 1296.000000
+SandboxLogger:INFO: mouse at 2732.000000, 1334.000000
+SandboxLogger:INFO: mouse at 2803.000000, 1367.000000
+SandboxLogger:INFO: mouse at 2861.000000, 1403.000000
+SandboxLogger:INFO: mouse at 2911.000000, 1440.000000
+SandboxLogger:INFO: mouse at 2948.000000, 1474.000000
+SandboxLogger:INFO: mouse at 2977.000000, 1576.000000
+SandboxLogger:INFO: mouse at 2999.000000, 1677.000000
+SandboxLogger:INFO: mouse at 3009.000000, 1777.000000
+SandboxLogger:INFO: mouse at 3020.000000, 1867.000000
+SandboxLogger:INFO: mouse at 3026.000000, 1946.000000
+SandboxLogger:INFO: mouse at 3030.000000, 2020.000000
+SandboxLogger:INFO: mouse at 3030.000000, 2079.000000
+SandboxLogger:INFO: mouse at 3030.000000, 2133.000000
+SandboxLogger:INFO: mouse at 3028.000000, 2183.000000
+SandboxLogger:INFO: mouse at 3025.000000, 2219.000000
+SandboxLogger:INFO: mouse at 3018.000000, 2252.000000
+SandboxLogger:INFO: mouse at 3009.000000, 2282.000000
+SandboxLogger:INFO: mouse at 2997.000000, 2302.000000
+SandboxLogger:INFO: mouse at 2987.000000, 2320.000000
+SandboxLogger:INFO: mouse at 2980.000000, 2333.000000
+SandboxLogger:INFO: mouse at 2957.000000, 2293.000000
+SandboxLogger:INFO: mouse at 2912.000000, 2225.000000
+SandboxLogger:INFO: mouse at 2872.000000, 2157.000000
+SandboxLogger:INFO: mouse at 2835.000000, 2090.000000
+SandboxLogger:INFO: mouse at 2797.000000, 2015.000000
+SandboxLogger:INFO: mouse at 2766.000000, 1935.000000
+SandboxLogger:INFO: mouse at 2742.000000, 1852.000000
+SandboxLogger:INFO: mouse at 2721.000000, 1770.000000
+SandboxLogger:INFO: mouse at 2708.000000, 1698.000000
+SandboxLogger:INFO: mouse at 2702.000000, 1633.000000
+SandboxLogger:INFO: mouse at 2699.000000, 1578.000000
+SandboxLogger:INFO: mouse at 2701.000000, 1523.000000
+SandboxLogger:INFO: mouse at 2706.000000, 1482.000000
+SandboxLogger:INFO: mouse at 2718.000000, 1433.000000
+SandboxLogger:INFO: mouse at 2737.000000, 1392.000000
+SandboxLogger:INFO: mouse at 2767.000000, 1343.000000
+SandboxLogger:INFO: mouse at 2805.000000, 1294.000000
+SandboxLogger:INFO: mouse at 2853.000000, 1242.000000
+SandboxLogger:INFO: mouse at 2905.000000, 1190.000000
+SandboxLogger:INFO: mouse at 2970.000000, 1135.000000
+SandboxLogger:INFO: mouse at 3048.000000, 1082.000000
+SandboxLogger:INFO: mouse at 3140.000000, 1027.000000
+SandboxLogger:INFO: mouse at 3250.000000, 966.000000
+SandboxLogger:INFO: mouse at 3374.000000, 908.000000
+SandboxLogger:INFO: mouse at 3512.000000, 849.000000
+SandboxLogger:INFO: mouse at 3668.000000, 797.000000
+SandboxLogger:INFO: mouse at 3834.000000, 744.000000
+SandboxLogger:INFO: mouse at 4013.000000, 695.000000
+SandboxLogger:INFO: mouse at 4197.000000, 651.000000
+SandboxLogger:INFO: mouse at 4385.000000, 614.000000
+SandboxLogger:INFO: mouse at 4557.000000, 586.000000
+SandboxLogger:INFO: mouse at 4730.000000, 562.000000
+SandboxLogger:INFO: mouse at 4888.000000, 542.000000
+SandboxLogger:INFO: mouse at 5040.000000, 526.000000
+SandboxLogger:INFO: mouse at 5177.000000, 519.000000
+SandboxLogger:INFO: mouse at 5294.000000, 515.000000
+SandboxLogger:INFO: mouse at 5406.000000, 515.000000
+SandboxLogger:INFO: mouse at 5519.000000, 511.000000
+SandboxLogger:INFO: mouse at 5593.000000, 508.000000
+SandboxLogger:INFO: mouse at 5624.000000, 506.000000
+SandboxLogger:INFO: mouse at 5748.000000, 448.000000
+SandboxLogger:INFO: mouse at 5862.000000, 398.000000
+SandboxLogger:INFO: mouse at 5965.000000, 358.000000
+SandboxLogger:INFO: mouse at 6078.000000, 316.000000
+SandboxLogger:INFO: mouse at 6191.000000, 275.000000
+SandboxLogger:INFO: mouse at 6308.000000, 241.000000
+SandboxLogger:INFO: mouse at 6425.000000, 207.000000
+SandboxLogger:INFO: mouse at 6546.000000, 173.000000
+SandboxLogger:INFO: mouse at 6672.000000, 142.000000
+SandboxLogger:INFO: mouse at 6798.000000, 104.000000
+SandboxLogger:INFO: mouse at 6915.000000, 70.000000
+SandboxLogger:INFO: mouse at 7028.000000, 33.000000
+SandboxLogger:INFO: mouse at 7130.000000, 0.000000
+SandboxLogger:INFO: mouse at 7214.000000, -32.000000
+SandboxLogger:INFO: mouse at 7270.000000, -57.000000
+SandboxLogger:INFO: terminated glfw, any remaining glfw resources destroyed
+SandboxLogger:INFO: game destroyed
+SandboxLogger:INFO: logging off

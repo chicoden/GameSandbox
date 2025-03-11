@@ -2,6 +2,7 @@ from obj_loader import load_obj
 from PIL import Image
 import struct
 import sys
+import io
 
 vertices, indices, faces_by_mtl = load_obj(sys.argv[1])
 
@@ -19,20 +20,23 @@ with open(sys.argv[2], "wb") as dst:
 
         for comp in ("Ka", "Kd", "Ks"):
             image = material.get("map_" + comp, None)
+
             if image:
                 image = image.convert("RGBA").transpose(Image.FLIP_TOP_BOTTOM)
-                dst.write(struct.pack("<2I", *image.size))
-                dst.write(image.tobytes())
 
             else:
-                color_bytes = bytearray([0, 0, 0, 255])
+                rgba = [0, 0, 0, 255]
                 color = material.get(comp, None)
                 if color is not None:
                     for i, x in enumerate(color):
-                        color_bytes[i] = int(x * 255)
+                        rgba[i] = int(x * 255)
 
-                dst.write(b"\x01\x00\x00\x00\x01\x00\x00\x00")
-                dst.write(color_bytes)
+                image = Image.new("RGBA", (1, 1), color=tuple(rgba))
+
+            with io.BytesIO() as buffer:
+                image.save(buffer, format="PNG")
+                dst.write(buffer.tell().to_bytes(4, byteorder="little"))
+                dst.write(buffer.getbuffer())
 
         image = material.get("map_Ns", None)
         if image:
@@ -40,4 +44,4 @@ with open(sys.argv[2], "wb") as dst:
 
         else:
             specular_power = material.get("Ns", 0.0)
-            dst.write(b"\x01\x00\x00\x00\x01\x00\x00\x00" + struct.pack("<f", specular_power))
+            dst.write(struct.pack("<f", specular_power))
