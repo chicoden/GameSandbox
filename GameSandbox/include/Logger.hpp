@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 
-#define LOG(level, message) Logger::getLogger().log(level, message)
+#define LOG(level, message) sandbox::logger.log(level, message)
 
 namespace sandbox {
 	class Logger {
@@ -16,11 +16,6 @@ namespace sandbox {
 			ERROR,
 			CRITICAL
 		};
-
-		static Logger& getLogger() {
-			static Logger logger(GLOBAL_LOGGER_NAME, GLOBAL_LOGGER_OUTPUT_PATH);
-			return logger;
-		}
 
 		Logger(const std::string& name, const std::string& outputFilePath) : name(name), logFile(outputFilePath) {
 			if (!logFile.is_open()) log(LogLevel::ERROR, std::string("failed to open ") + outputFilePath + ", logging to stdout only instead");
@@ -45,10 +40,9 @@ namespace sandbox {
 			"CRITICAL"
 		};
 
-		inline static const std::string GLOBAL_LOGGER_NAME = "SandboxLogger";
-		inline static const std::string GLOBAL_LOGGER_OUTPUT_PATH = "log.txt";
-
 		std::string name;
 		std::ofstream logFile;
 	};
+
+	static Logger logger("SandboxLogger", "log.txt");
 }
