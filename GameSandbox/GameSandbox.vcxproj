@@ -25,6 +25,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Common.hpp" />
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\Logger.hpp" />
   </ItemGroup>

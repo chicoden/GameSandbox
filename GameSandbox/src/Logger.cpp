@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include "Common.hpp"
 #include "Logger.hpp"
 
 namespace sandbox {
@@ -17,5 +18,7 @@ namespace sandbox {
 		log(LogLevel::INFO, "logging off");
 	}
 
-	Logger logger("SandboxLogger", "log.txt");
+#ifdef ENABLE_GLOBAL_LOGGING
+	Logger logger(GLOBAL_LOGGER_NAME, GLOBAL_LOGGER_PATH);
+#endif
 }

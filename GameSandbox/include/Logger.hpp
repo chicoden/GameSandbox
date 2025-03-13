@@ -2,8 +2,7 @@
 
 #include <string>
 #include <fstream>
-
-#define LOG(level, message) sandbox::logger.log(level, message)
+#include "Common.hpp"
 
 namespace sandbox {
 	class Logger {
@@ -33,5 +32,10 @@ namespace sandbox {
 			std::ofstream logFile;
 	};
 
+#ifdef ENABLE_GLOBAL_LOGGING
 	extern Logger logger;
+    #define LOG(level, message) logger.log(level, message)
+#else
+    #define LOG(level, message)
+#endif
 }
