@@ -15,10 +15,7 @@ namespace sandbox {
 			return false;
 		}
 
-		if (!setupEventHandlers()) {
-			LOG(Logger::LogLevel::CRITICAL, "failed to set up event handlers");
-			return false;
-		}
+		setupEventHandlers();
 
 		return true;
 	}
@@ -112,26 +109,11 @@ namespace sandbox {
 		LOG(Logger::LogLevel::INFO, std::string("mouse at ") + std::to_string(x) + ", " + std::to_string(y));
 	}
 
-	bool Game::setupEventHandlers() {
+	void Game::setupEventHandlers() {
 		glfwSetWindowUserPointer(window, this);
-
-		/*if (glfwSetKeyCallback(window, handleKey) == nullptr) {
-			LOG(Logger::LogLevel::CRITICAL, "failed to set key callback");
-			return false;
-		}
-
-		if (glfwSetCursorPosCallback(window, handleMousePosition) == nullptr) {
-			LOG(Logger::LogLevel::CRITICAL, "failed to set mouse position callback");
-			return false;
-		}*/
-
-		// TODO: figure out why these always return NULL but seem to work
 		glfwSetKeyCallback(window, handleKey);
 		glfwSetCursorPosCallback(window, handleMousePosition);
-
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-		return true;
 	}
 
 	void Game::destroyWindow() {

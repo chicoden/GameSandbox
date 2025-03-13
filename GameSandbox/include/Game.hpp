@@ -22,7 +22,7 @@ namespace sandbox {
 			static void handleMousePosition(GLFWwindow* window, double x, double y);
 
 			bool createWindow();
-			bool setupEventHandlers();
+			void setupEventHandlers();
 			void destroyWindow();
 	};
 }
