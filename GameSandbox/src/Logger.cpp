@@ -4,7 +4,10 @@
 #include "Logger.hpp"
 
 namespace sandbox {
-	Logger::Logger(const std::string& name, const std::string& outputFilePath) : name(name), logFile(outputFilePath) {
+	Logger::Logger(const std::string& name, const std::string& outputFilePath) :
+		name(name),
+		logFile(outputFilePath)
+	{
 		if (!logFile.is_open()) log(LogLevel::ERROR, std::string("failed to open ") + outputFilePath + ", logging to stdout only instead");
 		log(LogLevel::INFO, "logging on");
 	}

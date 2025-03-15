@@ -34,8 +34,8 @@ namespace sandbox {
 
 #ifdef ENABLE_GLOBAL_LOGGING
 	extern Logger logger;
-    #define LOG(level, message) logger.log(level, message)
+	#define LOG(level, message) logger.log(level, message)
 #else
-    #define LOG(level, message)
+	#define LOG(level, message)
 #endif
 }
