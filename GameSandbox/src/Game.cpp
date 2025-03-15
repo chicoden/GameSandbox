@@ -46,8 +46,10 @@ namespace sandbox {
 	}
 
 	void Game::handleKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
+		Game* game = static_cast<Game*>(glfwGetWindowUserPointer(window));
+
 		if (action == GLFW_PRESS && key == KEY_EXIT_FULLSCREEN) {
-			glfwSetWindowShouldClose(window, GLFW_TRUE);
+			game->toggleFullscreen();
 		}
 	}
 
@@ -74,7 +76,7 @@ namespace sandbox {
 
 		LOG(Logger::LogLevel::INFO, videoModeInfo);
 
-		const GLFWvidmode* videoMode = glfwGetVideoMode(monitor);
+		videoMode = glfwGetVideoMode(monitor);
 		if (videoMode == nullptr) {
 			LOG(Logger::LogLevel::CRITICAL, "failed to get current video mode");
 			return false;
@@ -88,21 +90,9 @@ namespace sandbox {
 		}
 
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-		window = glfwCreateWindow(videoMode->width, videoMode->height, GAME_TITLE.c_str(), monitor, nullptr);
-
-		if (window != nullptr) {
-			isFullscreen = true;
-		} else {
-			LOG(Logger::LogLevel::ERROR, "failed to create fullscreen window, falling back to windowed mode");
-
-			glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-			window = glfwCreateWindow(DEFAULT_WINDOW_SIZE_X, DEFAULT_WINDOW_SIZE_Y, GAME_TITLE.c_str(), nullptr, nullptr);
-
-			if (window == nullptr) {
-				LOG(Logger::LogLevel::CRITICAL, "fallback to windowed mode failed");
-				return false;
-			}
-		}
+		window = glfwCreateWindow(DEFAULT_WINDOW_SIZE_X, DEFAULT_WINDOW_SIZE_Y, GAME_TITLE.c_str(), nullptr, nullptr);
+		if (window == nullptr) return false;
+		toggleFullscreen();
 
 		return true;
 	}
@@ -111,6 +101,19 @@ namespace sandbox {
 		glfwSetWindowUserPointer(window, this);
 		glfwSetKeyCallback(window, handleKey);
 		glfwSetCursorPosCallback(window, handleMousePosition);
-		glfwSetInputMode(window, GLFW_CURSOR, isFullscreen ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+	}
+
+	void Game::toggleFullscreen() {
+		if (isFullscreen) {
+			glfwSetWindowMonitor(window, nullptr, windowReturnPosX, windowReturnPosY, windowReturnSizeX, windowReturnSizeY, GLFW_DONT_CARE);
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			isFullscreen = false;
+		} else {
+			glfwGetWindowPos(window, &windowReturnPosX, &windowReturnPosY);
+			glfwGetWindowSize(window, &windowReturnSizeX, &windowReturnSizeY);
+			glfwSetWindowMonitor(window, monitor, 0, 0, videoMode->width, videoMode->height, GLFW_DONT_CARE);
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			isFullscreen = true;
+		}
 	}
 }

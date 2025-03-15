@@ -12,6 +12,7 @@ namespace sandbox {
 
 		private:
 			GLFWmonitor* monitor;
+			const GLFWvidmode* videoMode;
 			GLFWwindow* window;
 			bool isFullscreen;
 			int windowReturnPosX, windowReturnPosY;
@@ -22,5 +23,6 @@ namespace sandbox {
 
 			bool createWindow();
 			void setupEventHandlers();
+			void toggleFullscreen();
 	};
 }
