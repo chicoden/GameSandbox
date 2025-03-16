@@ -16,9 +16,7 @@ namespace sandbox {
 		windowReturnSizeX(DEFAULT_WINDOW_SIZE_X),
 		windowReturnSizeY(DEFAULT_WINDOW_SIZE_Y),
 		vkInstance(nullptr)
-	{
-		spdlog::info("game instantiated");
-	}
+	{}
 
 	bool Game::init() {
 		if (!glfwInit()) {
@@ -36,8 +34,6 @@ namespace sandbox {
 		if (!initVulkan()) {
 			spdlog::critical("failed to initialize vulkan");
 			return false;
-		} else {
-			spdlog::info("done setting up vulkan");
 		}
 
 		setupEventHandlers();
@@ -58,9 +54,7 @@ namespace sandbox {
 
 		glfwMakeContextCurrent(nullptr);
 		glfwTerminate();
-		spdlog::info("glfw terminated, all remaining glfw resources destroyed");
-
-		spdlog::info("game destroyed");
+		spdlog::info("glfw terminated, resources destroyed");
 	}
 
 	void Game::handleKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -82,7 +76,7 @@ namespace sandbox {
 
 		int numVideoModes;
 		const GLFWvidmode* availableVideoModes = glfwGetVideoModes(monitor, &numVideoModes);
-		spdlog::info("available video modes for primary monitor: {}", stringJoin(availableVideoModes, availableVideoModes + numVideoModes, ", ", [](const auto& videoMode) {
+		spdlog::info("available video modes for primary monitor: {}", join(availableVideoModes, availableVideoModes + numVideoModes, ", ", [](const auto& videoMode) {
 			return fmt::format("{}x{}@{}Hz R{}G{}B{}", videoMode.width, videoMode.height, videoMode.refreshRate, videoMode.redBits, videoMode.greenBits, videoMode.blueBits);
 		}));
 
@@ -163,7 +157,7 @@ namespace sandbox {
 		vkEnumerateInstanceExtensionProperties(nullptr, &numAvailableExtensions, nullptr);
 		std::vector<VkExtensionProperties> availableExtensions(numAvailableExtensions);
 		vkEnumerateInstanceExtensionProperties(nullptr, &numAvailableExtensions, availableExtensions.data());
-		spdlog::info("available extensions: {}", stringJoin(availableExtensions.begin(), availableExtensions.end(), ", ", [](const auto& ext) { return std::string(ext.extensionName); }));
+		spdlog::info("available extensions: {}", join(availableExtensions.begin(), availableExtensions.end(), ", ", [](const auto& ext) { return std::string(ext.extensionName); }));
 
 		// Get GLFW required extensions
 		uint32_t numGlfwRequiredExtensions;
@@ -175,7 +169,7 @@ namespace sandbox {
 
 		// Check support for each required extension
 		// Ultimately, they all need to be supported but it may be useful to know exactly which ones are and which aren't
-	    bool haveRequiredExtensions = true;
+		bool haveRequiredExtensions = true;
 		for (const char* extName : enabledExtensions) {
 			if (checkExtensionSupport(extName, availableExtensions)) {
 				spdlog::info("required extension {}: supported", extName);
@@ -197,6 +191,7 @@ namespace sandbox {
 			spdlog::info("created vulkan instance");
 		}
 
+		spdlog::info("done setting up vulkan");
 		return true;
 	}
 

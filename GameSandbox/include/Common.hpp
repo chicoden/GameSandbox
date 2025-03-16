@@ -35,7 +35,7 @@ namespace sandbox {
 	const int KEY_TURN_RIGHT      = GLFW_KEY_D;
 
 	template<typename Iterator>
-	std::string stringJoin(Iterator begin, Iterator end, std::string sep, std::string (*stringifyElem)(const typename std::iterator_traits<Iterator>::value_type& elem)) {
+	std::string join(Iterator begin, Iterator end, std::string sep, std::string (*stringifyElem)(const typename std::iterator_traits<Iterator>::value_type& elem)) {
 		std::string result = "";
 		for (Iterator it = begin; it != end; it++) result += stringifyElem(*it) + sep;
 		result.erase(result.end() - sep.size(), result.end());
