@@ -1,15 +1,14 @@
 #pragma once
 
+//#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_OFF
+#include <spdlog/spdlog.h>
+
 #include <GLFW/glfw3.h>
 #include <string>
 
 #define ENABLE_VALIDATION_LAYERS
-#define ENABLE_GLOBAL_LOGGING
 
 namespace sandbox {
-	static const std::string GLOBAL_LOGGER_NAME = "SandboxLogger";
-	static const std::string GLOBAL_LOGGER_PATH = "log.txt";
-
 	static const std::string GAME_TITLE = "Game Sandbox";
 	static const int DEFAULT_WINDOW_SIZE_X = 800;
 	static const int DEFAULT_WINDOW_SIZE_Y = 600;

@@ -1,0 +1,3 @@
+[submodule "GameSandbox/spdlog"]
+	path = GameSandbox/spdlog
+	url = https://github.com/gabime/spdlog.git
