@@ -7,6 +7,7 @@
 namespace sandbox {
 	Game::Game() :
 		monitor(nullptr),
+		videoMode(nullptr),
 		window(nullptr),
 		isFullscreen(false),
 		windowReturnPosX(0),
