@@ -101,6 +101,85 @@ namespace sandbox {
 		return VK_FALSE;
 	}
 
+	bool Game::checkLayerSupport(const char* layer, const std::vector<VkLayerProperties>& availableLayers) {
+		for (const auto& layerProps : availableLayers) {
+			if (strcmp(layer, layerProps.layerName) == 0) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	bool Game::checkExtensionSupport(const char* extension, const std::vector<VkExtensionProperties>& availableExtensions) {
+		for (const auto& extProps : availableExtensions) {
+			if (strcmp(extension, extProps.extensionName) == 0) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	bool Game::requireRequiredLayers(std::vector<const char*>& enabledLayers, const std::vector<VkLayerProperties>& availableLayers) {
+		size_t firstRequiredLayerIndex = enabledLayers.size();
+		if (ENABLE_VALIDATION_LAYERS) enabledLayers.push_back("VK_LAYER_KHRONOS_validation");
+
+		bool haveRequiredLayers = true;
+		for (size_t i = firstRequiredLayerIndex; i < enabledLayers.size(); i++) {
+			const char* requiredLayer = enabledLayers[i];
+			if (checkLayerSupport(requiredLayer, availableLayers)) {
+				spdlog::info("required layer {}: supported", requiredLayer);
+			} else {
+				haveRequiredLayers = false;
+				spdlog::critical("required layer {}: unsupported", requiredLayer);
+			}
+		}
+
+		return haveRequiredLayers;
+	}
+
+	bool Game::requireRequiredExtensions(std::vector<const char*>& enabledExtensions, const std::vector<VkExtensionProperties>& availableExtensions) {
+		uint32_t numRequiredGlfwExtensions;
+		const char** requiredGlfwExtensions = glfwGetRequiredInstanceExtensions(&numRequiredGlfwExtensions);
+
+		size_t firstRequiredExtensionIndex = enabledExtensions.size();
+		enabledExtensions.insert(enabledExtensions.end(), requiredGlfwExtensions, requiredGlfwExtensions + numRequiredGlfwExtensions);
+		if (ENABLE_VALIDATION_LAYERS) enabledExtensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+
+		bool haveRequiredExtensions = true;
+		for (size_t i = firstRequiredExtensionIndex; i < enabledExtensions.size(); i++) {
+			const char* requiredExtension = enabledExtensions[i];
+			if (checkExtensionSupport(requiredExtension, availableExtensions)) {
+				spdlog::info("required extension {}: supported", requiredExtension);
+			} else {
+				haveRequiredExtensions = false;
+				spdlog::critical("required extension {}: unsupported", requiredExtension);
+			}
+		}
+
+		return haveRequiredExtensions;
+	}
+
+	void Game::initDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo) {
+		createInfo = {
+			.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT,
+
+			.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT
+				| VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT
+				| VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT
+				| VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT,
+
+			.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT
+				| VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT
+				| VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT,
+			//	| VK_DEBUG_UTILS_MESSAGE_TYPE_DEVICE_ADDRESS_BINDING_BIT_EXT,
+
+			.pfnUserCallback = debugMessengerCallback,
+			.pUserData = nullptr,
+		};
+	}
+
 	void Game::handleKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
 		Game* game = static_cast<Game*>(glfwGetWindowUserPointer(window));
 
@@ -166,85 +245,6 @@ namespace sandbox {
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 			isFullscreen = true;
 		}
-	}
-
-	bool Game::checkLayerSupport(const char* layer, std::vector<VkLayerProperties>& availableLayers) {
-		for (const auto& layerProps : availableLayers) {
-			if (strcmp(layer, layerProps.layerName) == 0) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	bool Game::checkExtensionSupport(const char* extension, std::vector<VkExtensionProperties>& availableExtensions) {
-		for (const auto& extProps : availableExtensions) {
-			if (strcmp(extension, extProps.extensionName) == 0) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	bool Game::requireRequiredLayers(std::vector<const char*>& enabledLayers, std::vector<VkLayerProperties>& availableLayers) {
-		size_t firstRequiredLayerIndex = enabledLayers.size();
-		if (ENABLE_VALIDATION_LAYERS) enabledLayers.push_back("VK_LAYER_KHRONOS_validation");
-
-		bool haveRequiredLayers = true;
-		for (size_t i = firstRequiredLayerIndex; i < enabledLayers.size(); i++) {
-			const char* requiredLayer = enabledLayers[i];
-			if (checkLayerSupport(requiredLayer, availableLayers)) {
-				spdlog::info("required layer {}: supported", requiredLayer);
-			} else {
-				haveRequiredLayers = false;
-				spdlog::critical("required layer {}: unsupported", requiredLayer);
-			}
-		}
-
-		return haveRequiredLayers;
-	}
-
-	bool Game::requireRequiredExtensions(std::vector<const char*>& enabledExtensions, std::vector<VkExtensionProperties>& availableExtensions) {
-		uint32_t numRequiredGlfwExtensions;
-		const char** requiredGlfwExtensions = glfwGetRequiredInstanceExtensions(&numRequiredGlfwExtensions);
-
-		size_t firstRequiredExtensionIndex = enabledExtensions.size();
-		enabledExtensions.insert(enabledExtensions.end(), requiredGlfwExtensions, requiredGlfwExtensions + numRequiredGlfwExtensions);
-		if (ENABLE_VALIDATION_LAYERS) enabledExtensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
-
-		bool haveRequiredExtensions = true;
-		for (size_t i = firstRequiredExtensionIndex; i < enabledExtensions.size(); i++) {
-			const char* requiredExtension = enabledExtensions[i];
-			if (checkExtensionSupport(requiredExtension, availableExtensions)) {
-				spdlog::info("required extension {}: supported", requiredExtension);
-			} else {
-				haveRequiredExtensions = false;
-				spdlog::critical("required extension {}: unsupported", requiredExtension);
-			}
-		}
-
-		return haveRequiredExtensions;
-	}
-
-	void Game::initDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo) {
-		createInfo = {
-			.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT,
-
-			.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT
-				| VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT
-				| VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT
-				| VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT,
-
-			.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT
-				| VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT
-				| VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT,
-			//	| VK_DEBUG_UTILS_MESSAGE_TYPE_DEVICE_ADDRESS_BINDING_BIT_EXT,
-
-			.pfnUserCallback = debugMessengerCallback,
-			.pUserData = nullptr,
-		};
 	}
 
 	bool Game::setupDebugMessenger() {

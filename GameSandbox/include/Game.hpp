@@ -29,18 +29,17 @@ namespace sandbox {
 				void* pUserData
 			);
 
+			static bool checkLayerSupport(const char* layer, const std::vector<VkLayerProperties>& availableLayers);
+			static bool checkExtensionSupport(const char* extension, const std::vector<VkExtensionProperties>& availableExtensions);
+			static bool requireRequiredLayers(std::vector<const char*>& enabledLayers, const std::vector<VkLayerProperties>& availableLayers);
+			static bool requireRequiredExtensions(std::vector<const char*>& enabledExtensions, const std::vector<VkExtensionProperties>& availableExtensions);
+			static void initDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo);
 			static void handleKey(GLFWwindow* window, int key, int scancode, int action, int mods);
 			static void handleMousePosition(GLFWwindow* window, double x, double y);
 
 			bool initWindow();
 			void setupEventHandlers();
 			void toggleFullscreen();
-
-			bool checkLayerSupport(const char* layer, std::vector<VkLayerProperties>& availableLayers);
-			bool checkExtensionSupport(const char* extension, std::vector<VkExtensionProperties>& availableExtensions);
-			bool requireRequiredLayers(std::vector<const char*>& enabledLayers, std::vector<VkLayerProperties>& availableLayers);
-			bool requireRequiredExtensions(std::vector<const char*>& enabledExtensions, std::vector<VkExtensionProperties>& availableExtensions);
-			void initDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo);
 			bool setupDebugMessenger();
 			bool initVulkan();
 			bool createVkInstance(std::vector<const char*>& enabledLayers, std::vector<const char*>& enabledExtensions);
