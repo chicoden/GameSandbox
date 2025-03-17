@@ -2,6 +2,8 @@
 
 //#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_OFF
 #include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
@@ -11,9 +13,7 @@
 #include <iterator>
 
 namespace sandbox {
-	const std::vector<const char*> VALIDATION_LAYERS = {
-		"VK_LAYER_KHRONOS_validation"
-	};
+	const bool ENABLE_VALIDATION_LAYERS = true;
 
 	static const std::string GAME_TITLE = "Game Sandbox";
 	const int DEFAULT_WINDOW_SIZE_X = 800;
