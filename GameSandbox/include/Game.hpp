@@ -42,6 +42,6 @@ namespace sandbox {
 			void toggleFullscreen();
 			bool setupDebugMessenger();
 			bool initVulkan();
-			bool createVkInstance(std::vector<const char*>& enabledLayers, std::vector<const char*>& enabledExtensions);
+			bool createVkInstance(const std::vector<const char*>& enabledLayers, const std::vector<const char*>& enabledExtensions);
 	};
 }

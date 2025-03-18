@@ -297,7 +297,7 @@ namespace sandbox {
 		return true;
 	}
 
-	bool Game::createVkInstance(std::vector<const char*>& enabledLayers, std::vector<const char*>& enabledExtensions) {
+	bool Game::createVkInstance(const std::vector<const char*>& enabledLayers, const std::vector<const char*>& enabledExtensions) {
 		VkApplicationInfo appInfo{};
 		appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
 		appInfo.pApplicationName = GAME_TITLE.c_str();
